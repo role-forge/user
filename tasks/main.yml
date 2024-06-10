@@ -1,0 +1,32 @@
+---
+- name: Create user
+  ansible.builtin.user:
+    name: "{{ user_name }}"
+    password: "{{ user_password }}"
+    create_home: yes
+    shell: /bin/bash
+  when: user_name
+
+- name: Make user sudo
+  ansible.builtin.user:
+    name: "{{ user_name }}"
+    groups: sudo
+    append: yes
+  when: user_sudo
+
+- name: Add SSH keys to user
+  ansible.builtin.authorized_key:
+    user: "{{ user_name }}"
+    key: "{{ item }}"
+  loop: "{{ user_ssh_key }}"
+  when: user_ssh_key
+
+- name: Ensure sudoers entry for limited systemctl commands without password
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^{{ user_name }} ALL=NOPASSWD: {{ item }}'
+    line: '{{ user_name }} ALL=NOPASSWD: {{ item }}'
+    validate: 'visudo -cf %s'
+  loop: "{{ user_sudoers }}"
+  when: user_sudoers
