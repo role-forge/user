@@ -32,16 +32,16 @@
 
 ### Пример плейбука
 ```yaml
-- name: Config nginx
+- name: Make user
   hosts: all
   vars:
-    user_name: dev-user
+    user_name: example
     user_sudo: false
-    user_password: "$6$6x2li0B7JCJ296Xy$Xd7Z.sSdFckrGB71iPEZS3mmDlmSHzR6fCLL2L.2CKC2/4gC.esXuLtm4EQgFal2DWRt6blVdPpQhI4kjdblC1"
+    user_password: "example-password"
     user_ssh_key:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC56o5lpxITIoDWYU6/Otv/cSQ3d5odBf0jM6PhmW0+cKRU8oNxaDQrbkcWhLvhOKRqbmo1+HOux14DQN/30Kzs5JX93t/oYJjc2lbqv1rGKjSVRCtHdyXLJUFnH5oCZvecyPLf0CIIilJfvdUgET8/C0boK>
+      - ssh-rsa examplekey
     user_sudoers:
-      - /bin/systemctl start systemd-journald
-      - /bin/systemctl stop systemd-journald
+      - /bin/example
+      - /bin/another-example
   roles:
     - role: user

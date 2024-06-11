@@ -2,10 +2,14 @@
 - name: Create user
   ansible.builtin.user:
     name: "{{ user_name }}"
-    password: "{{ user_password }}"
+    password: "{{ user_password | password_hash('sha512') }}"
     create_home: yes
     shell: /bin/bash
   when: user_name
+
+- name: Hash the user password
+  debug:
+    msg: "Hashed password is: {{ user_password | password_hash('sha512') }}"
 
 - name: Make user sudo
   ansible.builtin.user:
