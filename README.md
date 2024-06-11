@@ -10,9 +10,9 @@
   ```yaml
   user_name: example.com
 
-- `user_password`: Пароль пользователя, переменная должна быть зашифрована.
+- `user_password`: Пароль пользователя.
   ```yaml
-  user_password: "$6$rounds=656000$Q7JH/7l...mQbTfs5JbA$NQ1dSyedod/NJ0T1tI..."
+  user_password: "example-password"
 
 - `user_sudo`: Переменная типа boolean для включения пользователя в группу sudo.
   ```yaml
